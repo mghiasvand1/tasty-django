@@ -1,0 +1,618 @@
+{% load static %}
+{% load custom_tag1 %}
+{% load custom_tag2 %}
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<!-- Metas -->
+<meta charset="utf-8">
+<title>TASTY</title>
+<meta name="description" content="">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Css -->
+<link href="{% static 'restaurant/css/bootstrap.css' %}" rel="stylesheet" type="text/css" media="all" />
+<link href="{% static 'restaurant/css/base.css' %}" rel="stylesheet" type="text/css" media="all" />
+<link href="{% static 'restaurant/css/main.css' %}" rel="stylesheet" type="text/css" media="all" />
+<link href="{% static 'restaurant/css/flexslider.css' %}" rel="stylesheet" type="text/css" media="all" />
+<link href="{% static 'restaurant/css/fonts.css' %}" rel="stylesheet" type="text/css" media="all" />
+<link href="https://fonts.googleapis.com/css?family=Kristi" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Lora:400,700" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+
+    <!--Wrapper-->
+    <div class="wrapper">
+        <!--Hero section-->
+        <section class="hero overlay">
+            <!--Main slider-->
+            <div class="main-slider slider flexslider">
+                <ul class="slides">
+                    <li>
+                        <div class="background-img zoom">
+                            <img src="{% static 'restaurant/img/1.jpg' %}" alt="">
+                        </div>
+                    </li>
+                    <li>
+                        <div class="background-img zoom">
+                            <img src="{% static 'restaurant/img/2.jpg' %}" alt="">
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <!--End main slider-->
+            <!--Header-->
+
+            <header class="header default">
+                <div class=" left-part">
+                    <a class="logo scroll" href="#hero">
+                        <h2>tasty</h2>
+                    </a>
+                </div>
+                <div class="right-part">
+                    <nav class="main-nav">
+                        <div class="toggle-mobile-but">
+                            <a href="#" class="mobile-but">
+                                <div class="lines"></div>
+                            </a>
+                        </div>
+                        <ul>
+                            {% if user.is_superuser %}
+                            <li><a class="scroll" href="{% url 'admin:index' %}">Admin</a></li>
+                            {% endif %}
+                            <li><a class="scroll" href="#wrapper">{{ "Home"|translate:userCountryLanguageCode }}</a></li>
+                            <li><a class="scroll" href="#resto">Resto</a></li>
+                            <li><a class="scroll" href="#menu">{{ "Menu"|translate:userCountryLanguageCode }}</a></li>
+                            <li><a class="scroll" href="#comment">{{ "Comment"|translate:userCountryLanguageCode }}</a></li>
+                            {% if request.user.is_authenticated %}
+                            <li><a class="scroll" href="{% url 'comment' %}">{{ "Rate Us"|translate:userCountryLanguageCode }}</a></li>
+                            {% endif %}
+                            <li><a class="scroll" href="#special">{{ "Special"|translate:userCountryLanguageCode }}</a></li>
+                            {% if request.user.is_authenticated %}
+                                <li><a class="scroll" href="{% url 'reservation' %}">{{ "Reservation"|translate:userCountryLanguageCode }}</a></li>
+                            {% endif %}
+                            <li><a class="scroll" href="#blog">{{ "Blog"|translate:userCountryLanguageCode }}</a></li>
+                            <li><a class="scroll" href="#gallery">{{ "Gallery"|translate:userCountryLanguageCode }}</a></li>
+                            <li><a class="scroll" href="#contact">{{ "Contact"|translate:userCountryLanguageCode }}</a></li>
+                            {% if user.is_authenticated %}
+                            {% if not user.is_superuser %}
+                            <li><a class="scroll" href="{% url 'deleteAccount' %}">{{ "Delete Account"|translate:userCountryLanguageCode }}</a></li>
+                            {% endif %}
+                            {% endif %}
+                            {% if not user.is_authenticated %}
+                            <li><a class="scroll" href="{% url 'createAccount' %}">{{ "Create Account"|translate:userCountryLanguageCode }}</a></li>
+                            {% endif %}
+                            {% if user.is_authenticated %}
+                            {% if not user.is_superuser %}
+                            {% if status != "subscribe" and status != "unsubscribe" %}
+                            <li><a class="scroll" href="{% url 'subscribtion' %}" id="subscribtion">{{ "Unsubscribe"|translate:userCountryLanguageCode }}</a></li>
+                            {% endif %}
+                            {% endif %}
+                            {% endif %}
+                            {% if user.is_authenticated %}
+                            {% if not user.is_superuser %}
+                            {% if status == "subscribe" or status == "unsubscribe" %}
+                            <li><a class="scroll" href="{% url 'subscribtion' %}" id="subscribtion">{{ status|translate:userCountryLanguageCode }}</a></li>
+                            {% endif %}
+                            {% endif %}
+                            {% endif %}
+                        </ul>
+                    </nav>
+                </div>
+            </header>
+            <!--End header-->
+            <!--Inner hero-->
+            <div class="inner-hero">
+                <!--Container-->
+                <div class="container hero-content">
+                    <!--Row-->
+                    <div class="row">
+                        <div class="col-sm-12 text-center">
+                            <h1 class="large">{{ "delicious italian food"|translate:userCountryLanguageCode }}</h1>
+                            <p class="lead">{{ "Making delicious italian food since 1990"|translate:userCountryLanguageCode }}</p>
+
+                        </div>
+                    </div>
+                    <!--End row-->
+                </div>
+                <!--End container-->
+            </div>
+            <!--End inner hero-->
+        </section>
+        <!--End hero section-->
+        <!--Resto section-->
+        <section id="resto" class="resto pt-120 pb-120">
+            <!--Container-->
+            <div class="container">
+                <!--Row-->
+                <div class="row">
+                    <div class="col-sm-12 text-center mb-100">
+                        <h1 class="title">{{ "The restaurant"|translate:userCountryLanguageCode }}</h1>
+                        <p class="beige">{{ "Welcome to tasty restaurant"|translate:userCountryLanguageCode }}</p>
+                    </div>
+                </div>
+                <!--End row-->
+            </div>
+            <!--End container-->
+            <!--Container-->
+            <div class="container">
+                <!--Row-->
+                <div class="row vertical-align">
+                    <div class="col-md-5 col-sm-5 ">
+                        <div class="block-img mb-10">
+                            <div class="background-img">
+                                <img src="{% static 'restaurant/img/3.jpg' %}" alt="">
+                            </div>
+                        </div>
+                        <div class="block-img ">
+                            <div class="background-img">
+                                <img src="{% static 'restaurant/img/4.jpg' %}" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-md-offset-1 col-sm-6 col-sm-offset-1  ">
+                        <div class="block-content">
+                            <h2 class="title-medium mb-10 pb-10">
+                                {{ "Welcome to Tasty a joyous eatery inspired by <br>the spirit and culture of italian cuisine."|translate:userCountryLanguageCode }}
+                                <span class="dots"></span>
+                            </h2>
+                            <h4 class="title-small">{{ "Making delicious italian food since 1990"|translate:userCountryLanguageCode }}</h4>
+                            <p class="puch-right mb-40">Lorem Ipsum is simply dummy text of the printing and typesetting
+                                industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an
+                                unknown printer took a galley of type and scrambled it to make a type specimen book galley of
+                                type and scrambled .</p>
+                            <img class="sing" src="{% static 'restaurant/img/5.png' %}" alt="">
+                        </div>
+                    </div>
+                </div>
+                <!--End row-->
+            </div>
+            <!--End container-->
+        </section>
+        <!--End resto section-->
+        <!--Short reservation section-->
+        <section class="short-reservation pt-200 pb-250 overlay">
+            <div class="background-img zoom">
+                <img src="{% static 'restaurant/img/6.jpg' %}" alt="">
+            </div>
+            <!--Container-->
+            <div class="container">
+                <!--Row-->
+                <div class="row">
+                    {% if not request.user.is_authenticated %}
+                        <div class="col-sm-12 text-center front-p">
+                        <h1 class="large">{{ "Create An Account To Make A Reservation"|translate:userCountryLanguageCode }}</h1>
+                        <p class="lead white top">{{ "Opens 8:00 AM - 10:00 PM, every day of the week "|translate:userCountryLanguageCode }}</p>
+                    </div>
+                    {% endif %}
+                        <div class="col-sm-12 text-center front-p">
+                        <h1 class="large">{{ "make a reservation"|translate:userCountryLanguageCode }}</h1>
+                        <p class="lead white top">{{ "Opens 8:00 AM - 10:00 PM, every day of the week "|translate:userCountryLanguageCode }}</p>
+                        <a href="{% url 'reservation' %}" class="but scroll">{{ "Book a table"|translate:userCountryLanguageCode }}</a>
+                    </div>
+                </div>
+                <!--End row-->
+            </div>
+            <!--End container-->
+        </section>
+        <!--End short reservation section-->
+        <!--Menu section-->
+        <section id="menu" class="menu pt-120 pb-120 ">
+            <!--Container-->
+            <div class="container">
+                <!--Row-->
+                <div class="row">
+                    <div class="col-sm-12  mb-100 text-center">
+                        <h1 class="title"> Tasty menu</h1>
+                        <p class="beige">{{ "Variety of delicious plate"|translate:userCountryLanguageCode }}</p>
+                    </div>
+                </div>
+                <!--End row-->
+            </div>
+            <!--End container-->
+            <!--Container-->
+            <div class="container">
+                <!--Row-->
+                <div class="row">
+                    <div class="col-sm-12 ">
+                        <!--Tabs-->
+                        <ul class="block-tabs text-center">
+                            <li class="active">{{ "Breakfast"|translate:userCountryLanguageCode }}</li>
+                            <li class="">{{ "Lunch"|translate:userCountryLanguageCode }}</li>
+                            <li class="">{{ "Dessert"|translate:userCountryLanguageCode }}</li>
+                            <li class="">{{ "Beverages"|translate:userCountryLanguageCode }}</li>
+                        </ul>
+                    </div>
+                </div>
+                <!--End row-->
+            </div>
+            <!--End container-->
+            <!--Container-->
+            <div class="container">
+                <!--Row-->
+                <div class="row">
+                    <ul class="block-tab mt-40">
+                        <!--Menu list-->
+                        <li class="active block-list">
+                            <div class="col-sm-5  col-sm-offset-1 text-center">
+                                <div class="block-cat">
+                                    <h2 class="mb-30">omelettes </h2>
+                                </div>
+                                {% for menuItem in breakfastOmelettesMenu %}
+                                    <div class="block-content pb-25 mb-25">
+                                    <h2 class="mb-5 ">{{ menuItem.name|translate:userCountryLanguageCode }}</h2>
+                                    <p>{{ menuItem.ingredient|translate:userCountryLanguageCode }}.</p>
+                                    <span class="block-price">${{ menuItem.price }}</span>
+                                    <span class="dots"></span>
+                                </div>
+                                {% endfor %}
+                            </div>
+                            <div class="col-sm-5 text-center ">
+                                <div class="block-cat">
+                                    <h2 class="mb-30">waffle </h2>
+                                </div>
+                                {% for menuItem in breakfastWaffleMenu %}
+                                    <div class="block-content pb-25 mb-25">
+                                    <h2 class="mb-5 ">{{ menuItem.name|translate:userCountryLanguageCode }}</h2>
+                                    <p>{{ menuItem.ingredient|translate:userCountryLanguageCode }}.</p>
+                                    <span class="block-price">${{ menuItem.price }}</span>
+                                    <span class="dots"></span>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </li>
+                        <!--Menu list-->
+                        <li class=" block-list">
+                            <div class="col-sm-5  col-sm-offset-1 text-center">
+                                <div class="block-cat">
+                                    <h2 class="mb-30">appetizers </h2>
+                                </div>
+                                {% for menuItem in lunchAppetizersMenu %}
+                                    <div class="block-content pb-25 mb-25">
+                                    <h2 class="mb-5 ">{{ menuItem.name|translate:userCountryLanguageCode }}</h2>
+                                    <p>{{ menuItem.ingredient|translate:userCountryLanguageCode }}.</p>
+                                    <span class="block-price">${{ menuItem.price }}</span>
+                                    <span class="dots"></span>
+                                </div>
+                                {% endfor %}
+                                <div class="block-cat">
+                                    <h2 class="mb-30">{{ "kids"|translate:userCountryLanguageCode }}</h2>
+                                </div>
+                                {% for menuItem in lunchKidsMenu %}
+                                    <div class="block-content pb-25 mb-25">
+                                    <h2 class="mb-5 ">{{ menuItem.name|translate:userCountryLanguageCode }}</h2>
+                                    <p>{{ menuItem.ingredient|translate:userCountryLanguageCode }}.</p>
+                                    <span class="block-price">${{ menuItem.price }}</span>
+                                    <span class="dots"></span>
+                                </div>
+                                {% endfor %}
+                            </div>
+                            <div class="col-sm-5 text-center ">
+                                <div class="block-cat">
+                                    <h2 class="mb-30">{{ "main "|translate:userCountryLanguageCode }}</h2>
+                                </div>
+                                {% for menuItem in lunchMainMenu %}
+                                    <div class="block-content pb-25 mb-25">
+                                    <h2 class="mb-5 ">{{ menuItem.name |translate:userCountryLanguageCode}}</h2>
+                                    <p>{{ menuItem.ingredient|translate:userCountryLanguageCode }}.</p>
+                                    <span class="block-price">${{ menuItem.price }}</span>
+                                    <span class="dots"></span>
+                                </div>
+                                {% endfor %}
+                                <div class="block-cat">
+                                    <h2 class="mb-30">pizza </h2>
+                                </div>
+                                {% for menuItem in lunchPizzaMenu %}
+                                    <div class="block-content pb-25 mb-25">
+                                    <h2 class="mb-5 ">{{ menuItem.name|translate:userCountryLanguageCode }}</h2>
+                                    <p>{{ menuItem.ingredient|translate:userCountryLanguageCode }}.</p>
+                                    <span class="block-price">${{ menuItem.price }}</span>
+                                    <span class="dots"></span>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </li>
+                        <!--Menu list-->
+                        <li class=" block-list">
+                            <div class="col-sm-5  col-sm-offset-1 text-center">
+                                <div class="block-cat">
+                                    <h2 class="mb-30">cheesecake </h2>
+                                </div>
+                                {% for menuItem in dessertCheesecakeMenu %}
+                                    <div class="block-content pb-25 mb-25">
+                                    <h2 class="mb-5 ">{{ menuItem.name|translate:userCountryLanguageCode }}</h2>
+                                    <p>{{ menuItem.ingredient|translate:userCountryLanguageCode }}.</p>
+                                    <span class="block-price">${{ menuItem.price }}</span>
+                                    <span class="dots"></span>
+                                </div>
+                                {% endfor %}
+                            </div>
+                            <div class="col-sm-5 text-center ">
+                                <div class="block-cat">
+                                    <h2 class="mb-30">{{ "ice cream"|translate:userCountryLanguageCode  }}</h2>
+                                </div>
+                                {% for menuItem in dessertIcecreamMenu %}
+                                    <div class="block-content pb-25 mb-25">
+                                    <h2 class="mb-5 ">{{ menuItem.name|translate:userCountryLanguageCode }}</h2>
+                                    <p>{{ menuItem.ingredient|translate:userCountryLanguageCode }}.</p>
+                                    <span class="block-price">${{ menuItem.price }}</span>
+                                    <span class="dots"></span>
+                                </div>
+                                {% endfor %}
+                                <div class="block-cat">
+                                    <h2 class="mb-30">specialty</h2>
+                                </div>
+                                {% for menuItem in dessertSpecialtyMenu %}
+                                    <div class="block-content pb-25 mb-25">
+                                    <h2 class="mb-5 ">{{ menuItem.name|translate:userCountryLanguageCode }}</h2>
+                                    <p>{{ menuItem.ingredient|translate:userCountryLanguageCode }}.</p>
+                                    <span class="block-price">${{ menuItem.price }}</span>
+                                    <span class="dots"></span>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </li>
+                        <!--Menu list-->
+                        <li class="block-list">
+                            <div class="col-sm-5  col-sm-offset-1 text-center">
+                                <div class="block-cat">
+                                    <h2 class="mb-30">{{ "iced drinks "|translate:userCountryLanguageCode }}</h2>
+                                </div>
+                                {% for menuItem in beveragesIceddrinksMenu %}
+                                    <div class="block-content pb-25 mb-25">
+                                    <h2 class="mb-5 ">{{ menuItem.name|translate:userCountryLanguageCode }}</h2>
+                                    <p>{{ menuItem.ingredient|translate:userCountryLanguageCode }}.</p>
+                                    <span class="block-price">${{ menuItem.price }}</span>
+                                    <span class="dots"></span>
+                                </div>
+                                {% endfor %}
+                            </div>
+                            <div class="col-sm-5 text-center ">
+                                <div class="block-cat">
+                                    <h2 class="mb-30">{{ "hot drinks "|translate:userCountryLanguageCode }}</h2>
+                                </div>
+                                {% for menuItem in beveragesHotdrinksMenu %}
+                                    <div class="block-content pb-25 mb-25">
+                                    <h2 class="mb-5 ">{{ menuItem.name|translate:userCountryLanguageCode }}</h2>
+                                    <p>{{ menuItem.ingredient|translate:userCountryLanguageCode }}.</p>
+                                    <span class="block-price">${{ menuItem.price }}</span>
+                                    <span class="dots"></span>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </li>
+                    </ul>
+                    <!--End tabs-->
+                </div>
+                <!--End row-->
+            </div>
+            <!--End container-->
+        </section>
+        <!--End menu section-->
+        <!--Review section-->
+        <section class="review pt-120 pb-120 overlay">
+            <div class="background-img zoom">
+                <img src="{% static 'restaurant/img/7.jpg' %}" alt="">
+            </div>
+            <!--Container-->
+            <div class="container" id="comment">
+                <!--Row-->
+                <div class="row">
+                    <div class="col-sm-12 text-center front-p">
+                        <div class="review-slider flexslider">
+                            <ul class="slides">
+                                {% for comment in comments %}
+                                    <li>
+                                    <div class="block-review">
+                                        <h2 class="white h2-s-1 mb-5">{{ comment.title|translate:userCountryLanguageCode }}</h2>
+                                        <p>{{ comment.message|translate:userCountryLanguageCode }}</p>
+                                        <ul class="block-star mt-10">
+                                            {% if comment.star == 1 %}
+                                            <li><i class="icon-star" style="color:yellow;"></i></li>
+                                            <li><i class="icon-star-empty"></i></li>
+                                            <li><i class="icon-star-empty"></i></li>
+                                            <li><i class="icon-star-empty"></i></li>
+                                            <li><i class="icon-star-empty"></i></li>
+                                            {% endif %}
+                                            {% if comment.star == 2 %}
+                                            <li><i class="icon-star" style="color:yellow;"></i></li>
+                                            <li><i class="icon-star" style="color:yellow;"></i></li>
+                                            <li><i class="icon-star-empty"></i></li>
+                                            <li><i class="icon-star-empty"></i></li>
+                                            <li><i class="icon-star-empty"></i></li>
+                                            {% endif %}
+                                            {% if comment.star == 3 %}
+                                            <li><i class="icon-star" style="color:yellow;"></i></li>
+                                            <li><i class="icon-star" style="color:yellow;"></i></li>
+                                            <li><i class="icon-star" style="color:yellow;"></i></li>
+                                            <li><i class="icon-star-empty"></i></li>
+                                            <li><i class="icon-star-empty"></i></li>
+                                            {% endif %}
+                                            {% if comment.star == 4 %}
+                                            <li><i class="icon-star" style="color:yellow;"></i></li>
+                                            <li><i class="icon-star" style="color:yellow;"></i></li>
+                                            <li><i class="icon-star" style="color:yellow;"></i></li>
+                                            <li><i class="icon-star" style="color:yellow;"></i></li>
+                                            <li><i class="icon-star-empty"></i></li>
+                                            {% endif %}
+                                            {% if comment.star == 5 %}
+                                            <li><i class="icon-star" style="color:yellow;"></i></li>
+                                            <li><i class="icon-star" style="color:yellow;"></i></li>
+                                            <li><i class="icon-star" style="color:yellow;"></i></li>
+                                            <li><i class="icon-star" style="color:yellow;"></i></li>
+                                            <li><i class="icon-star" style="color:yellow;"></i></li>
+                                            {% endif %}
+                                        </ul>
+                                    </div>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!--End row-->
+            </div>
+            <!--End container-->
+        </section><br><br>
+        <!--End reviews section-->
+        <br><br><div class="main" id="blog">
+              <h1 class="title">TASTY - Blog</h1><br><br>
+  <ul class="cards">
+    {% for blog in blogs %}
+            <li class="cards_item">
+      <div class="card">
+        <div class="card_image"><img src="../../static/restaurant/img/{{ blog.picture.url|split:'/' }}"></div>
+        <div class="card_content">
+          <h2 class="card_title">{{ blog.title|translate:userCountryLanguageCode }}</h2>
+          <p class="card_text">{{ blog.summary|translate:userCountryLanguageCode }}</p>
+          <a href="{% url 'showSample' blog.id %}"><button class="btn card_btn">{{ "Read More"|translate:userCountryLanguageCode }}</button></a>
+        </div>
+      </div>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+
+
+        <!--Special section-->
+        <section id="special" class="special pt-120 pb-120">
+            <!--Container-->
+            <div class="container">
+                <!--Row-->
+                <div class="row">
+                    <div class="col-sm-12 text-center mb-100">
+                        <h1 class="title">{{ "Today's special"|translate:userCountryLanguageCode }}</h1>
+                        <p class="beige">{{ "Special plate by the chef"|translate:userCountryLanguageCode }}</p>
+                    </div>
+                </div>
+                <!--End row-->
+            </div>
+            <!--End container-->
+
+            <!--Container-->
+            <div class=" container">
+                <!--Row-->
+                <div class="row">
+                    <div class="col-md-4  pd-0 block-special">
+                        <div class="block-img special">
+                            <div class="background-img">
+                                <img src="../../static/restaurant/img/{{ specialBreakfastImageName }}" alt="">
+                            </div>
+                        </div>
+                        <div class="block-content special sp-1">
+                            <h2 class="mb-5  h2-s-1">{{ special.breakfastName|translate:userCountryLanguageCode }}</h2>
+                            <p>{{ special.breakfastIngredients|translate:userCountryLanguageCode }}</p>
+                            <span class="block-price special">${{ special.breakfastPrice }}</span>
+                            <span class="block-border "></span>
+                        </div>
+                    </div>
+                    <div class="col-md-4  pd-0 block-special active ">
+                        <div class="block-img special">
+                            <div class="background-img">
+                                <img src="../../static/restaurant/img/{{ specialLunchImageName }}" alt="">
+                            </div>
+                        </div>
+                        <div class="block-content special sp-2">
+                            <h2 class="mb-5  h2-s-1">{{ special.lunchName|translate:userCountryLanguageCode }} </h2>
+                            <p>{{ special.lunchIngredients|translate:userCountryLanguageCode }}</p>
+                            <span class="block-price special">${{ special.lunchPrice }}</span>
+                        </div>
+                    </div>
+                    <div class="col-md-4  pd-0 block-special">
+                        <div class="block-img special">
+                            <div class="background-img">
+                                <img src="../../static/restaurant/img/{{ specialBeverageImageName }}" alt="">
+                            </div>
+                        </div>
+                        <div class="block-content special sp-3">
+                            <h2 class="mb-5  h2-s-1">{{ special.beverageName|translate:userCountryLanguageCode }}</h2>
+                            <p>{{ special.beverageIngredients|translate:userCountryLanguageCode }}</p>
+                            <span class="block-price special">${{ special.beveragePrice }}</span>
+                        </div>
+                    </div>
+                </div>
+                <!--End row-->
+            </div>
+            <!--End container-->
+            
+        </section>
+        <!--End special section-->
+
+
+
+        <!--Gallery section-->
+        <section id="gallery" class="gallery overlay">
+            <!-- As a general rule, include a heading (h1-h6) as a child of each section and article element for screen readers purposes-->
+            <h2 class="indent">Gallery</h2>
+            <!--Gallery slider-->
+            <div class="gallery-slider slider flexslider">
+                <ul class="slides">
+                    {% for image in galleryImages %}
+                        <li>
+                        <div class="background-img zoom">
+                            <img src="../../static/restaurant/img/{{image.picture.url|split:'/'}}" alt="">
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <!--End gallery slider-->
+        </section>
+        <!--End gallery section-->
+        <!--Contact section-->
+        <section id="contact" class="contact pt-250 pb-250">
+            <!-- As a general rule, include a heading (h1-h6) as a child of each section and article element for screen readers purposes-->
+            <h2 class="indent">{{ "Contact"|translate:userCountryLanguageCode }}</h2>
+            <div class="block-map ">
+                <div id="map" class="map"></div>
+            </div>
+            <!--Container-->
+            <div class="container block-contact">
+                <!--Row-->
+                <div class="row">
+                    <div class="col-md-5 col-md-offset-7 col-sm-5 col-sm-offset-7">
+                        <ul class="block-social mb-30">
+                            <li><a href="#"><i class="icon-facebook"></i></a></li>
+                            <li><a href="#"><i class="icon-twitter"></i></a></li>
+                            <li><a href="#"><i class="icon-vimeo"></i></a></li>
+                        </ul>
+                        <div class="block-info mb-30">
+                            <p><strong>{{ "Opens daily 8:00 AM - 10:00 PM"|translate:userCountryLanguageCode }}</strong><br>
+                                <p>{{ "Dear guests, you are welcomed to dine with us at Tasty restaurant.Have a pleasant dining experience."|translate:userCountryLanguageCode }}</p>
+                                <br><br>
+                                3805 Edwards Rd <br>
+                                Cincinnati, OH 45209 USA<br><br>
+                                Phone: (513) 352-3209 <br>
+                                Fax: (513) 352-6220 <br>
+                                Email : <span><a href="mailto:customers@tasty.net">customers@tasty.net</a></span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-5 col-md-offset-7 col-sm-5 col-sm-offset-7">
+                        <footer class="footer-short mt-40">
+                            <p> &copy; {{ "2017 all rights reserved - a product of mutationthemes."|translate:userCountryLanguageCode }}</p>
+                        </footer>
+                    </div>
+                </div>
+                <!--End row-->
+            </div>
+            <!--End container-->
+        </section>
+        <!--End contact section-->
+    </div>
+    <!-- End wrapper-->
+    <!--Javascript-->
+    <script src="{% static 'restaurant/js/jquery-1.12.4.min.js' %}" type="text/javascript"></script>
+    <script src="{% static 'restaurant/js/jquery.flexslider-min.js' %}" type="text/javascript"></script>
+    <script src="{% static 'restaurant/js/smooth-scroll.js' %}" type="text/javascript"></script>
+    <script src="{% static 'restaurant/js/jquery.validate.min.js' %}" type="text/javascript"></script>
+    <script src="{% static 'restaurant/js/placeholders.min.js' %}" type="text/javascript"></script>
+    <script src="{% static 'restaurant/js/script.js' %}" type="text/javascript"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBbGQXiGt-6UAmOFFdSzYI-byeE7ewBuVM&callback=initializeMap">
+    </script>
+    <!-- Google analytics -->
+    <!-- End google analytics -->
+</body>
+
+</html>

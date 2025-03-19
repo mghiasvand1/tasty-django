@@ -1,0 +1,28 @@
+{% load static %}
+{% load custom_tag2 %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>TASTY - {{ blog.title|translate:userCountryLanguageCode }}</title>
+    <link rel="stylesheet" type="text/css" href="{% static "restaurant/css/sample.css" %}">
+</head>
+<body>
+  <a href="{% url 'indexPage' %}" style="text-decoration: none; text-align: center"><h1 style="color:#a68b7c; margin-top: 30px;margin-bottom: 5px">Tasty</h1></a>
+<div class="wrapper">
+<div class="posts">
+  <div class="title">
+<p>{{ blog.title|translate:userCountryLanguageCode }}</p></div>
+  <div class="date">{{ blog.date }}  |  {{blog.views}} views</div>
+  <div class="image">
+    <img src="../../static/restaurant/img/{{ blogPicture }}" alt="Cat">
+  </div>
+  <div class="text">
+    <p>{{ blog.body|translate:userCountryLanguageCode }}</p>
+</div>
+  
+  
+</div>
+</div>
+</body>
+</html>
